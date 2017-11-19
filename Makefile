@@ -1,5 +1,6 @@
 CC        = gcc
-CFLAGS    = -O3 -Wall -std=c99 `pkg-config --cflags --libs jansson`
+CFLAGS    = -O3 -Wall -std=c11
+LFLAGS	  = -ljansson
 
 PROG      = main
 TEST      = test
@@ -15,10 +16,10 @@ OBJS      = $(SRCS:$(SRCDIR)/%.c=$(BINDIR)/%.o)
 all : $(PROG)
 
 launch:
-	./$(BINDIR)/$(PROG)
+	./$(BINDIR)/$(PROG) < ./files/params.json
 
 $(PROG) : $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o ./$(BINDIR)/$@
+	$(CC) $(CFLAGS) $(OBJS) -o ./$(BINDIR)/$@ $(LFLAGS)
 
 $(OBJS) : $(BINDIR)/%.o : $(SRCDIR)/%.c
 	$(CC) $(CFLAGS) -o $@ -c $<
