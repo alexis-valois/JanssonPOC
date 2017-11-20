@@ -1,28 +1,28 @@
-#include <stdio.h>
 #include <stdlib.h>
-#include <jansson.h>
+#include "jansson_wrapper.h"
 
 int main (int argc, char const *argv[])
 {
-	printf("%s\n", "Trying to parse input stream...");
-	json_error_t error;
-	
-	json_t* data = json_loadf(stdin, 0, &error);
+	JanssonWrapper *jan = NULL;
 
-	if(!data)
+	if (!feof(stdin))
 	{
-	    fprintf(stderr, "error: on line %d: %s\n", error.line, error.text);
-	    return 1;
+	   jan = loadJson(stdin);
+
+	   printf("%s%s%s\n", "Value for key : ", "walls-color = ", getString(jan, "walls-color"));
+	   printf("%s%s%i\n", "Value for key : ", "num-rows = ", getInt(jan, "num-rows"));
+	   printf("%s%s%s\n", "Value for key : ", "with-solution = ", getBool(jan, "with-solution") ? "true" : "false");
+	   printf("%s%s%i\n", "Value for key : ", "start (first element) = ", getIntArray(jan, "start")[0]);
+	   printf("%s%s%i\n", "Value for key : ", "start (second element) = ", getIntArray(jan, "start")[1]);
+	   printf("%s%s%i\n", "Value for key : ", "end (first element) = ", getIntArray(jan, "end")[0]);
+	   printf("%s%s%i\n", "Value for key : ", "end (second element) = ", getIntArray(jan, "end")[1]);
+	}else{
+		printf("%s\n", "No json loaded.");
 	}
 
-	const json_t* wallsColor = json_object_get(data, "walls-color");
-    if(!json_is_string(wallsColor))
-    {
-    	fprintf(stderr, "error: walls-color is not a string.");
-	    return 1;
-    }
-
-    printf("%s%s\n", "walls-color value is : ", json_string_value(wallsColor));
-
-	return 0;
+	if (jan != NULL)
+		free(jan);	
+	
+	return EXIT_SUCCESS;	
 }
+

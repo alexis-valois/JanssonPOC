@@ -31,3 +31,4 @@ $(TEST) : $(OBJS)
 
 clean:
 	rm -rf *~ $(BINDIR)/*
+	clear
