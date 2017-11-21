@@ -1,7 +1,7 @@
 {
     "num-rows": 8,
     "num-cols": 12,
-    "start": [1, 1],
+    "start": [1,1],
     "end": [3, 7],
     "with-solution": true,
     "walls-color": "fuchsia",
