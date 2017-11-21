@@ -1,11 +1,12 @@
 #include <stdlib.h>
+#include <unistd.h>
 #include "jansson_wrapper.h"
 
 int main (int argc, char const *argv[])
 {
 	JanssonWrapper *jan = NULL;
 
-	if (!feof(stdin))
+	if (!isatty(STDIN_FILENO))
 	{
 	   jan = loadJson(stdin);
 
@@ -17,7 +18,7 @@ int main (int argc, char const *argv[])
 	   printf("%s%s%i\n", "Value for key : ", "end (first element) = ", getIntArray(jan, "end")[0]);
 	   printf("%s%s%i\n", "Value for key : ", "end (second element) = ", getIntArray(jan, "end")[1]);
 	}else{
-		printf("%s\n", "No json loaded.");
+		printf("%s\n", "No json file to process.");
 	}
 
 	if (jan != NULL)

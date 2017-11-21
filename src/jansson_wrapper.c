@@ -74,6 +74,7 @@ int* getIntArray(JanssonWrapper* jan, const char* key)
 	   }
 
 	   size_t arraySize = json_array_size(value);
+	   /*TODO : voir s'il y a un realloc avec des 0*/
 	   finalArray = calloc(arraySize, sizeof(int));
 
 	   for (int i = 0; i < arraySize; i++)

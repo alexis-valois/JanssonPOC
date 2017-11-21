@@ -18,6 +18,9 @@ all : $(PROG)
 launch:
 	./$(BINDIR)/$(PROG) < ./files/params.json
 
+noargs:
+	./$(BINDIR)/$(PROG)
+
 $(PROG) : $(OBJS)
 	$(CC) $(CFLAGS) $(OBJS) -o ./$(BINDIR)/$@ $(LFLAGS)
 
